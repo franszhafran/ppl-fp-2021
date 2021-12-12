@@ -6,6 +6,7 @@ import (
 	"github.com/franszhafran/ppl-fp-2021/domain/event"
 	"github.com/franszhafran/ppl-fp-2021/domain/model"
 	"github.com/franszhafran/ppl-fp-2021/domain/observer"
+	"github.com/franszhafran/ppl-fp-2021/domain/repository"
 )
 
 // create(model.Barang) error
@@ -13,10 +14,11 @@ import (
 
 type PembelianUsecase struct {
 	EventListeners []observer.Listener
+	PembelianRepo  repository.PembelianRepository
 }
 
-func (p *PembelianUsecase) Create(model.Pembelian) {
-
+func (p *PembelianUsecase) Create(pembelian model.Pembelian) {
+	p.PembelianRepo.Persist(&pembelian)
 }
 
 func (p *PembelianUsecase) Verify(pembelian model.Pembelian, pembayaran model.Pembayaran) error {
